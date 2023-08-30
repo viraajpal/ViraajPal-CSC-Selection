@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country State and City</title>
+</head>
+<body>
+    Country:
+    <select name="country" id="country" onchange="populateStates()">
+        <option value="N.A">--Select Country--</option>
+        <option value="India">India</option>
+        <option value="London">London</option>
+        <option value="Australia">Australia</option>
+    </select><br><br>
+    State:
+    <div id="stateDiv">
+        <select name="state" id="state">
+            <option value="N.A">--Select State--</option>
+        </select>
+    </div><br><br>
+    City:
+    <div id="cityDiv">
+        <select name="city" id="city">
+            <option value="N.A">--Select City--</option>
+        </select>
+    </div>
+
+    <script>
+        const stateData = {
+            India: ["Uttar Pradesh", "Madhya Pradesh", "Himachal Pradesh", "Delhi"],
+            London: ["Sydney", "Amberstone", "Ambride", "Brido"],
+            Australia: ["California", "Tasmania", "South Australia", "Victoria"]
+        };
+
+        const cityData = {
+    "Uttar Pradesh": ["Mujaffernagar", "Kanpur", "Kannauj", "Farukhabad"],
+    "Madhya Pradesh": ["Indore", "Mahiya", "Sahiya", "Ram"],
+    "Himachal Pradesh": ["Sikoi", "Bihalla", "Kangra", "Himachal"],
+    "Delhi": ["CP Road", "Rajori Garden", "Rajiv Chauk", "Gandhi Chauk"],
+    "Sydney": ["Launceston", "Canberra", "Albany", "Logan City"],
+    "Amberstone": ["CityA", "CityB", "CityC", "CityD"],
+    "Ambride": ["Anerley", "	Redbridge", "Brent", "Islington"],
+    "Brido": ["	Bromley", "Lewisham", "Westherhum", "Greenwich"],
+    
+    "California": ["Anerley", "	Redbridge", "Brent", "Islington"],
+    "Tasmania": ["Bexley", "Barnet", "Richmond upon Thames", "	Islington"],
+    "South Australia": ["Enfield", "Hammersmith", "Chelsea", "Hamlets"],
+    "Victoria": ["	Bromley", "Lewisham", "Westherhum", "Greenwich"],
+};
+
+        function populateStates() {
+            const selectedCountry = document.getElementById("country").value;
+            const stateDropdown = document.getElementById("state");
+            const cityDropdown = document.getElementById("city");
+
+            stateDropdown.innerHTML = "<option value='N.A'>--Select State--</option>";
+            cityDropdown.innerHTML = "<option value='N.A'>--Select City--</option>";
+
+            if (selectedCountry !== "N.A") {
+                const states = stateData[selectedCountry];
+                states.forEach(state => {
+                    const option = document.createElement("option");
+                    option.value = state;
+                    option.textContent = state;
+                    stateDropdown.appendChild(option);
+                });
+            }
+        }
+
+        function populateCities() {
+            const selectedState = document.getElementById("state").value;
+            const cityDropdown = document.getElementById("city");
+
+            cityDropdown.innerHTML = "<option value='N.A'>--Select City--</option>";
+
+            if (selectedState !== "N.A") {
+                const cities = cityData[selectedState];
+                cities.forEach(city => {
+                    const option = document.createElement("option");
+                    option.value = city;
+                    option.textContent = city;
+                    cityDropdown.appendChild(option);
+                });
+            }
+        }
+
+        document.getElementById("country").addEventListener("change", populateStates);
+        document.getElementById("state").addEventListener("change", populateCities);
+    </script>
+</body>
+</html>
